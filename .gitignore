@@ -1,0 +1,15 @@
+*.egg-info
+*.pyc
+*.db
+.vscode
+.DS_Store
+.coverage
+.idea
+.pytest_cache
+.python-version
+.venv
+.envrc
+.env*
+__pycache__
+
+*.sqlite

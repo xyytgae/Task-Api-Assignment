@@ -1,0 +1,15 @@
+version: '3'
+services:
+  task-api-assignment:
+    container_name: task-api-assignment
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/src
+    ports:
+      - 8000:8000
+    stdin_open: true
+    tty: true
+    # entrypoint: "/bin/sh -c"
+    # command: '"tail -f /dev/null"'
