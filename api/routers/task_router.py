@@ -23,7 +23,7 @@ def create_contexts(task_body: schemas.TaskCreate, db: Session = Depends(get_db)
     """Create contexts."""
     return create_task(db, task_body)
 
-@router.get('/task', response_model=List[schemas.Task])
+@router.get('/tasks', response_model=List[schemas.Task])
 def get_contexts(due_date: Union[str, None] = None, status: Union[Status, None] = None, db: Session = Depends(get_db),):
     """Get contexts."""
     return get_tasks(db, due_date, status)
