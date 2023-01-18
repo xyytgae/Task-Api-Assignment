@@ -10,7 +10,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
 from api.models.task import Task
-
+from api.models.status  import Status
 
 Base = declarative_base()
 
@@ -22,7 +22,7 @@ class TaskEntity(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False, unique=True)
     content = Column(String, nullable=False)
-    status = Column(String, nullable=False)
+    status = Column(String, nullable=False, default=Status.OPEN)
     due_date = Column(DATE, nullable=False)
     created_at = Column(TIMESTAMP(timezone=False), nullable=False, default=datetime.now())
 
