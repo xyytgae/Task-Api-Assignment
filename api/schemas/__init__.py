@@ -1,1 +1,1 @@
-from .task import TaskCreate, TaskCreateResponse
+from .task import TaskCreate, TaskCreateResponse, Task
