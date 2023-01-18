@@ -9,6 +9,7 @@ from api.db.database import SQLALCHEMY_DATABASE_URL
 from api.db.task_datasource import create_task_db
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from api.models.status import Status
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -28,7 +29,7 @@ def init() -> None:
     """init."""
     with SessionLocal() as db:
         due_date = date(2022, 8, 10)
-        create_task_db(db=db, title='sample_task', content='sample_task_content', due_date=due_date, status='Open')
+        create_task_db(db=db, title='sample_task', content='sample_task_content', due_date=due_date, status=Status.OPEN)
 
 
 def main() -> None:

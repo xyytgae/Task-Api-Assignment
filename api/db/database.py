@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session, scoped_session, sessionmaker
 SQLALCHEMY_DATABASE_URL = "sqlite:///./app.sqlite"
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, pool_pre_ping=True, echo=True
+    SQLALCHEMY_DATABASE_URL, pool_pre_ping=True, echo=True, connect_args={"check_same_thread": False}
 )
 
 Base.metadata.create_all(engine)
