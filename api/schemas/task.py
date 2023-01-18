@@ -14,7 +14,11 @@ class TaskCreate(TaskBase):
 
 class TaskCreateResponse(TaskCreate):
     id: int
-    status: str
+    status: Status
 
     class Config:
         orm_mode = True
+
+class Task(TaskBase):
+    id: int
+    status: Status
