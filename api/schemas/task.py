@@ -1,16 +1,15 @@
 """Task."""
 
 from datetime import date
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from api.models.status  import Status
 
 class TaskBase(BaseModel):
     title: str
-    content: str
     due_date: date
 
 class TaskCreate(TaskBase):
-    pass
+    content: str
 
 class TaskCreateResponse(TaskCreate):
     id: int
@@ -19,6 +18,16 @@ class TaskCreateResponse(TaskCreate):
     class Config:
         orm_mode = True
 
+class TaskUpdate(TaskBase):
+    status: Status
+
+class TaskUpdateResponse(TaskUpdate):
+    id: int
+    content: str
+    class Config:
+        orm_mode = True
+
 class Task(TaskBase):
     id: int
+    content: str
     status: Status
