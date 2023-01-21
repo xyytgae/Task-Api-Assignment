@@ -11,7 +11,7 @@
     - タスクのタイトル (title)
     - タスクの内容 (content)
     - タスクの期限 (due_date)
-    - タスクのステータス (sataus: `Open`・`In Progress`・`Closed`)
+    - タスクのステータス (status: `Open`・`In Progress`・`Closed`)
 #### 課題1. API作成
 以下の3つの API を作成すること
 - タスク登録用API
@@ -80,5 +80,94 @@ $ curl localhost:8000/api/tasks/1
 - `git archive` 機能を使い、tar.gz に圧縮したものを提出してください。
 - この README を変更し、以下を記述しておいてください。なお、README は**英語で書いても構いません**。
   - 使用ライブラリ・フレームワーク等
+    - SQLAlchemy
+    - Pydantic
+    - FastAPI
   - API のインストール・起動方法・動作確認方法
+    ```bash
+    $ git clone https://gitlab.hacarus.com/hirotoshi.uchino/task-api-assignment.git
+    $ cd task-api-assignment
+    $ docker-compose build   # Docker コンテナのビルド
+    $ docker-compose up   # Docker コンテナの起動
+    ```
   - API の仕様
+    - APIにはFastAPI、DBにはSQLite、ORMにはSQLAlchemyを使用して実装
+    - タスクの登録、更新、一覧取得の機能を実装
+      - タスクの登録
+        ```bash
+        $ curl -X 'POST' \
+          'http://localhost:8000/api/tasks' \
+          -H 'accept: application/json' \
+          -H 'Content-Type: application/json' \
+          -d '{
+          "title": "sample_task1",
+          "due_date": "2022-08-10",
+          "content": "sample_task_content"
+        }'
+        # レスポンス  -----------------------
+        {
+          "id": "1",
+          "title": "sample_task1",
+          "content": "sample_task_content",
+          "due_date": "2022-08-10",
+          "status": "Open"
+        }
+        ```
+      - タスクの更新
+        ```bash
+        $ curl -X 'PUT' \
+          'http://localhost:8000/api/tasks/1' \
+          -H 'accept: application/json' \
+          -H 'Content-Type: application/json' \
+          -d '{
+          "title": "sample_task123",
+          "due_date": "2023-12-10",
+          "status": "Closed"
+        }'
+        # レスポンス  -----------------------
+        {
+         "id": "1",
+         "title": "sample_task123",
+         "content": "sample_task_content",
+         "due_date": "2023-12-10",
+         "status": "Closed"
+         }
+        ```
+      - タスクの一覧取得
+
+        due_dateやstatusのフィルタリングを行わずに取得 
+        ```bash
+        $ curl -X 'GET' \
+          'http://localhost:8000/api/tasks' \
+          -H 'accept: application/json'
+
+        # レスポンス  -----------------------
+        [
+          {
+            "id": "1",
+            "title": "sample_task123",
+            "content": "sample_task_content",
+            "due_date": "2023-12-10",
+            "status": "Closed"
+          }
+        ]
+        ```
+
+        due_dateやstatusのフィルタリングを行い取得
+        ```bash
+        $ curl -X 'GET' \
+          'http://localhost:8000/api/tasks?due_date=2023-12-10&status=Closed' \
+          -H 'accept: application/json'
+
+        # レスポンス  -----------------------
+        [
+          {
+            "id": "1",
+            "title": "sample_task123",
+            "content": "sample_task_content",
+            "due_date": "2023-12-10",
+            "status": "Closed"
+          }
+        ]
+        ```
+
